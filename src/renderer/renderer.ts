@@ -1,36 +1,42 @@
-﻿import * as BABYLON from 'babylonjs';
-/**
- * Created by glenn on 7/28/2017.
- */
+﻿import * as BabylonCommon from '../common/babylonCommon';
+
+
+const DEFAULTBASECOLOR: BABYLON.Color3 = BABYLON.Color3.Gray();
+const DEFAULTMETALLIC: number = 0;
+const DEFAULTROUGHNESS: number = .25;
 
 export class Renderer {
   private engine: BABYLON.Engine;
   private scene: BABYLON.Scene;
   private camera: BABYLON.Camera;
+  private engineAndScene: BabylonCommon.EngineAndScene;
 
-  constructor(canvas: HTMLCanvasElement){
-    this.engine = new BABYLON.Engine(canvas);
-    this.scene = new BABYLON.Scene(this.engine);
+  constructor(canvas: HTMLCanvasElement) {
+    this.initialize(canvas);
     this.buildScene(canvas);
     this.renderLoop(this.engine);
   }
 
-  buildScene(canvas: HTMLCanvasElement){
-      this.scene.clearColor = new BABYLON.Color4(1, 1, 1, 0);
-      this.camera = new BABYLON.ArcRotateCamera('cam1', 1, .8, 5, new BABYLON.Vector3(0, 0, 0), this.scene);
-      this.camera.attachControl(canvas);
+  initialize(canvas: HTMLCanvasElement) {
+    this.engineAndScene = BabylonCommon.createEngineAndScene(canvas);
+    this.engine = this.engineAndScene.engine;
+    this.scene = this.engineAndScene.scene;
+  }
 
-      let light = new BABYLON.DirectionalLight('sunlight', new BABYLON.Vector3(-1, -1, -1), this.scene);
-      light.intensity = .5;
+  buildScene(canvas: HTMLCanvasElement) {
+    this.scene.clearColor = new BABYLON.Color4(1, 1, 1, 0);
+    this.camera = BabylonCommon.createOrbitCamAndAttach(this.scene, canvas, 'cam1');
 
-      let box = BABYLON.MeshBuilder.CreateBox('box1', {
-          size: 1
-      }, this.scene);
+    let light = new BABYLON.DirectionalLight('sunlight', new BABYLON.Vector3(-1, -1, -1), this.scene);
+    light.intensity = .5;
+
+    let beveledCube = BabylonCommon.loadMeshFromSceneFile('Cube', 'assets/cube_scene.babylon', this.scene);
+    let postProcessing = BabylonCommon.addPostProcessingPipeline(this.scene, [this.camera], 'defaultPipeline');
   }
 
   renderLoop(engine: BABYLON.Engine) {
-      engine.runRenderLoop(() => {
-          this.scene.render();
-      })
+    engine.runRenderLoop(() => {
+      this.scene.render();
+    })
   }
 }
