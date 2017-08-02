@@ -35,7 +35,7 @@ export class Line {
         return this.actors.splice(loc-1, 1)[0];
     }
 
-    whichActorAtPosition(pos: number): Actor{ // assume 1 (first in line) is index 0
+    showActorAtPosition(pos: number): Actor{ // assume 1 (first in line) is index 0
         return this.actors[pos-1];
     }
 
