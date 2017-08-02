@@ -3,14 +3,12 @@ import {Actor} from "./actor";
 export class Line {
 
     actors: Actor[];
-    startLoc: Vector3;
+    startLoc: Vector3 = {x: 0, y: 0, z: 0};
     endLoc: Vector3;
-    distBetweenActors: number;
+    distBetweenActors: number = 5;
 
     constructor(){
         this.actors = [];
-        this.startLoc = {x: 0, y: 0, z: 0};
-        this.distBetweenActors = 5;
     }
 
     addActorToFront(actor: Actor){
@@ -41,6 +39,9 @@ export class Line {
         return this.actors[pos-1];
     }
 
-    calcEndOfLine(){} // TODO
+    calcEndOfLine(){
+        // TODO
+        // ((this.startLoc) + (this.distanceBetweenActors)) * (this.actors.length - 1)
+    } 
 
 }
