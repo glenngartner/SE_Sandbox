@@ -9,7 +9,7 @@ export class Renderer {
   constructor(canvas: HTMLCanvasElement) {
     this.initialize(canvas);
     this.buildScene(canvas);
-    this.renderLoop(this.engine);
+    this.renderLoop(this.engineAndScene);
   }
 
   initialize(canvas: HTMLCanvasElement) {
@@ -29,9 +29,9 @@ export class Renderer {
     let postProcessing = BabylonCommon.addPostProcessingPipeline(this.scene, [this.camera], 'defaultPipeline');
   }
 
-  renderLoop(engine: BABYLON.Engine) {
-    engine.runRenderLoop(() => {
-      this.scene.render();
+  renderLoop(eAndS: BabylonCommon.EngineAndScene) {
+    eAndS.engine.runRenderLoop(() => {
+      eAndS.scene.render();
     })
   }
 }
