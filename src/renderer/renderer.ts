@@ -1,10 +1,5 @@
 ﻿import * as BabylonCommon from '../common/babylonCommon';
 
-
-const DEFAULTBASECOLOR: BABYLON.Color3 = BABYLON.Color3.Gray();
-const DEFAULTMETALLIC: number = 0;
-const DEFAULTROUGHNESS: number = .25;
-
 export class Renderer {
   private engine: BABYLON.Engine;
   private scene: BABYLON.Scene;
