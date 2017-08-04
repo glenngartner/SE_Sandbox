@@ -41,18 +41,11 @@ export class Renderer {
     this.camera = BabylonCommon.createOrbitCamAndAttach(this.scene, canvas, 'cam1');
 
     const light = new BABYLON.DirectionalLight('sunlight', new BABYLON.Vector3(-1, -1, -1), this.scene);
-    // light.intensity = .5;
 
     const postProcessing = BabylonCommon.addPostProcessingPipeline(this.scene, [this.camera], 'defaultPipeline');
 
     this.line = new Line();
-    const actor1 = this.line.addNewActor('steve');
-    const actor2 = this.line.addNewActor('carl');
-    const actor3 = this.line.addNewActor('rachel');
-    const actor4 = this.line.addNewActor('tom');
-    const actor5 = this.line.addNewActor('mary');
-    const actor6 = this.line.addNewActor('butch');
-    this.line.updateLocationOfAllActors();
+    this.createActors(this.line);
     this.scene.debugLayer.show();
   }
 
@@ -61,13 +54,17 @@ export class Renderer {
     cubeGeneric.scaling = new BABYLON.Vector3(.5, .5, .5);
     cubeGeneric.isVisible = false;
     cubeGeneric.material = BabylonCommon.assignPBRMaterial(this.scene, BABYLON.Color3.Red());
-    // for (const actor of this.line.actors){
-    //   const mesh = cubeGeneric.clone(actor.name);
-    //   mesh.isVisible = true;
-    //   mesh.material = BabylonCommon.assignPBRMaterial(this.scene, new BABYLON.Color3(Math.random(), Math.random(), Math.random()));
-    //   mesh.position.set(actor.position.x, actor.position.y, actor.position.z);
-    // }
     this.createMeshForEachActor(this.line.actors, cubeGeneric);
+  }
+
+  createActors(line: Line) {
+    const actor1 = line.addNewActor('steve');
+    const actor2 = line.addNewActor('carl');
+    const actor3 = line.addNewActor('rachel');
+    const actor4 = line.addNewActor('tom');
+    const actor5 = line.addNewActor('mary');
+    const actor6 = line.addNewActor('butch');
+    line.updateLocationOfAllActors();
   }
 
   createMeshForEachActor(actors: Actor[], srcMesh: BABYLON.AbstractMesh){
