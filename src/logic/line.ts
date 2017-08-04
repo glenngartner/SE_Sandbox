@@ -1,15 +1,9 @@
-import {
-  Actor
-} from './actor';
+import { Actor } from './actor';
 
 export class Line {
 
   actors: Actor[];
-  startLoc: Vector3 = {
-    x: 0,
-    y: 0,
-    z: 0
-  };
+  startLoc: Vector3 = {x: 0, y: 0, z: 0};
   endLoc: Vector3;
   distBetweenActors = 0.5;
 

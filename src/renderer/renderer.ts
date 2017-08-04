@@ -28,6 +28,7 @@ export class Renderer {
   loadModels() {
     this.assetManager = new BABYLON.AssetsManager(this.scene);
     const loadMesh = this.assetManager.addMeshTask('bCubeLoad', 'Cube', 'assets/', 'cube_scene.babylon');
+    const loadMesh2 = this.assetManager.addMeshTask('bCubeAnimLoad', 'cube_anim', 'assets/', 'animated_cube.babylon');
     this.assetManager.load();
   }
 
@@ -56,6 +57,13 @@ export class Renderer {
     cubeGeneric.isVisible = false;
     cubeGeneric.material = BabylonCommon.assignPBRMaterial(this.scene, BABYLON.Color3.Red());
     this.createMeshForEachActor(this.line.actors, cubeGeneric);
+
+    const cubeAnim = this.scene.getMeshByName('cube_anim');
+    cubeAnim.actionManager = new BABYLON.ActionManager(this.scene);
+    this.executeCodeOnAction(cubeAnim, BABYLON.ActionManager.OnPointerOverTrigger, () => {
+      console.log(`over cubeAnim`);
+      // cubeAnim.material.co
+    });
   }
 
   createActors(line: Line) {
@@ -66,6 +74,11 @@ export class Renderer {
     const actor5 = line.addNewActor('mary');
     const actor6 = line.addNewActor('butch');
     line.updateLocationOfAllActors();
+  }
+
+  executeCodeOnAction(mesh: BABYLON.AbstractMesh, trigger: any, callback: (evt: BABYLON.ActionEvent) => void ) {
+    mesh.actionManager.registerAction(
+      new BABYLON.ExecuteCodeAction(trigger, callback));
   }
 
   createMeshForEachActor(actors: Actor[], srcMesh: BABYLON.AbstractMesh) {

@@ -39,6 +39,8 @@ export function addPostProcessingPipeline(scene: BABYLON.Scene, camera: BABYLON.
   defaultPipeline.bloomWeight = 0.1;
   defaultPipeline.imageProcessing.vignetteEnabled = true;
   defaultPipeline.imageProcessing.toneMappingEnabled = true;
+  defaultPipeline.imageProcessing.contrast = 1.5;
+  defaultPipeline.imageProcessing.exposure = 1.6;
   return defaultPipeline;
 }
 
