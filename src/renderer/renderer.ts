@@ -53,7 +53,7 @@ export class Renderer {
     const actor5 = this.line.addNewActor('mary');
     const actor6 = this.line.addNewActor('butch');
     this.line.updateLocationOfAllActors();
-    // this.scene.debugLayer.show();
+    this.scene.debugLayer.show();
   }
 
   playWithThings() {
@@ -61,12 +61,21 @@ export class Renderer {
     cubeGeneric.scaling = new BABYLON.Vector3(.5, .5, .5);
     cubeGeneric.isVisible = false;
     cubeGeneric.material = BabylonCommon.assignPBRMaterial(this.scene, BABYLON.Color3.Red());
-    // const meshes: BABYLON.AbstractMesh[] = [];
-    for (const actor of this.line.actors){
-      // const mesh = BABYLON.MeshBuilder.CreateBox(actor.name, {size: actor.size.x}, this.scene);
-      const mesh = new BABYLON.InstancedMesh(actor.name, <BABYLON.Mesh>cubeGeneric);
+    // for (const actor of this.line.actors){
+    //   const mesh = cubeGeneric.clone(actor.name);
+    //   mesh.isVisible = true;
+    //   mesh.material = BabylonCommon.assignPBRMaterial(this.scene, new BABYLON.Color3(Math.random(), Math.random(), Math.random()));
+    //   mesh.position.set(actor.position.x, actor.position.y, actor.position.z);
+    // }
+    this.createMeshForEachActor(this.line.actors, cubeGeneric);
+  }
+
+  createMeshForEachActor(actors: Actor[], srcMesh: BABYLON.AbstractMesh){
+    for (const actor of actors){
+      const mesh = srcMesh.clone(actor.name);
+      mesh.isVisible = true;
+      mesh.material = BabylonCommon.assignPBRMaterial(this.scene, new BABYLON.Color3(Math.random(), Math.random(), Math.random()));
       mesh.position.set(actor.position.x, actor.position.y, actor.position.z);
-      // meshes.push(mesh);
     }
   }
 

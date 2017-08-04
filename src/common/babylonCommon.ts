@@ -1,4 +1,4 @@
-// commonly used functons and tasks for Babylonjs scenes. 
+// commonly used functons and tasks for Babylonjs scenes.
 // requires Babylonjs be imported as a global script (index.html)
 // requires Babylon.d.ts be imported by the Typescript compiler
 
@@ -8,25 +8,25 @@ export interface EngineAndScene {
 }
 
 const DEFAULTBASECOLOR: BABYLON.Color3 = BABYLON.Color3.Gray();
-const DEFAULTMETALLIC: number = 0;
-const DEFAULTROUGHNESS: number = .25;
+const DEFAULTMETALLIC = 0;
+const DEFAULTROUGHNESS = .25;
 
 export function createEngineAndScene(canvas: HTMLCanvasElement): EngineAndScene {
-  let engine = new BABYLON.Engine(canvas);
-  let scene = new BABYLON.Scene(engine);
+  const engine = new BABYLON.Engine(canvas);
+  const scene = new BABYLON.Scene(engine);
   return {engine: engine, scene: scene};
 }
 
-export function assignPBRMaterial(scene: BABYLON.Scene, baseColor ? : BABYLON.Color3, metallic ? : number, roughness ? : number): BABYLON.PBRMetallicRoughnessMaterial {
-  let mat = new BABYLON.PBRMetallicRoughnessMaterial('', scene);
+export function assignPBRMaterial(scene: BABYLON.Scene, baseColor ?: BABYLON.Color3, metallic ?: number, roughness ?: number): BABYLON.PBRMetallicRoughnessMaterial {
+  const mat = new BABYLON.PBRMetallicRoughnessMaterial('', scene);
   baseColor != null ? mat.baseColor = baseColor : mat.baseColor = DEFAULTBASECOLOR;
   metallic != null ? mat.metallic = metallic : mat.metallic = DEFAULTMETALLIC;
   roughness != null ? mat.roughness = roughness : mat.roughness = DEFAULTROUGHNESS;
   return mat;
 }
 
-export function createOrbitCamAndAttach(scene: BABYLON.Scene, canvas:HTMLCanvasElement, camName: string): BABYLON.ArcRotateCamera{
-  let cam = new BABYLON.ArcRotateCamera(camName, 1, .8, 5, new BABYLON.Vector3(0, 0, 0), scene);
+export function createOrbitCamAndAttach(scene: BABYLON.Scene, canvas: HTMLCanvasElement, camName: string): BABYLON.ArcRotateCamera{
+  const cam = new BABYLON.ArcRotateCamera(camName, 1, .8, 5, new BABYLON.Vector3(0, 0, 0), scene);
   cam.attachControl(canvas);
   return cam;
 }

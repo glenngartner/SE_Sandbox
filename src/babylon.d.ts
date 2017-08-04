@@ -7146,7 +7146,7 @@ declare module BABYLON {
          * Clones the mesh, used by the class Mesh.
          * Just returns `null` for an AbstractMesh.
          */
-        clone(name: string, newParent: Node, doNotCloneChildren?: boolean): AbstractMesh;
+        clone(name: string, newParent?: Node, doNotCloneChildren?: boolean): AbstractMesh;
         /**
          * Disposes all the mesh submeshes.
          * Returns the AbstractMesh.
