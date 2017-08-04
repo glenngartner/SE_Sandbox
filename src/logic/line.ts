@@ -11,7 +11,7 @@ export class Line {
     z: 0
   };
   endLoc: Vector3;
-  distBetweenActors = 5;
+  distBetweenActors = 0.5;
 
   constructor() {
     this.actors = [];
@@ -47,6 +47,34 @@ export class Line {
 
   positionOfActor(actorToFind: Actor): number {
     return this.actors.indexOf(actorToFind);
+  }
+
+  addNewActor(name: string): Actor {
+    const actor = new Actor();
+    actor.name = name;
+    this.addActorToBack(actor);
+    return actor;
+  }
+
+  updateLocationOfAllActors() {
+    for (const actor of this.actors) {
+      this.assignLocationToActor(actor);
+    }
+  }
+
+  assignLocationToActor(actor: Actor) {
+    if (this.positionOfActor(actor) === 0) {
+      actor.position = this.startLoc; // if you're the first actor in line, stand at the line's starting point
+    } else {
+      const actorInFront = this.actors[this.positionOfActor(actor) - 1]; // get the guy standing in front of you in line
+      const myPos: Vector3 = { // a little vector math
+        x: actorInFront.position.x - actor.size.x - this.distBetweenActors,
+        y: 0, // actorInFront.position.y + actor.size.y + this.distBetweenActors,
+        z: 0, // actorInFront.position.z + actor.size.z + this.distBetweenActors,
+      };
+      actor.position = myPos;
+
+    }
   }
 
   calcEndOfLine() {

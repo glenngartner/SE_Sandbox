@@ -1,14 +1,14 @@
 
 
 export class Actor {
-    static instances: number = 0;
+    private static instances = 0;
     public instance: number;
     public name: string;
-    private size: Vector3;
+    public size: Vector3 = {x: 1, y: 1, z: 1};
     public position: Vector3;
 
-    constructor(){
-        Actor.instances++;
-        this.instance = Actor.instances;
+    constructor() {
+        Actor.instances++; // auto-increment static ID when instantiated
+        this.instance = Actor.instances; // auto-assign an instance ID when instantiated
     }
 }
