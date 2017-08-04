@@ -13,9 +13,7 @@ export class AppComponent implements AfterViewInit{
   @ViewChild('renderCanvas')
   canvas: HTMLCanvasElement;
 
-  constructor(){
-    // this.renderer = new Renderer(this.canvas);
-  }
+  constructor(){}
 
   ngAfterViewInit(){
     let element = <HTMLCanvasElement>document.getElementById('renderCanvas');
