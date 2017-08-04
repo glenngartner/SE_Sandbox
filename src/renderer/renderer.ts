@@ -68,7 +68,7 @@ export class Renderer {
     line.updateLocationOfAllActors();
   }
 
-  createMeshForEachActor(actors: Actor[], srcMesh: BABYLON.AbstractMesh){
+  createMeshForEachActor(actors: Actor[], srcMesh: BABYLON.AbstractMesh) {
     for (const actor of actors){
       const mesh = srcMesh.clone(actor.name);
       mesh.isVisible = true; // make visible, since source mesh is hidden
@@ -76,9 +76,18 @@ export class Renderer {
       mesh.actionManager.registerAction( // register a mouseover action to each mesh
         new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPointerOverTrigger,
           () => {
+            mesh.outlineWidth = .15;
+            mesh.outlineColor = BABYLON.Color3.Yellow();
+            mesh.renderOutline = true;
             console.log(`${mesh.name} is number ${this.line.positionOfActor(actor)} in line`);
          }
         ));
+        mesh.actionManager.registerAction( // register a mouse out event
+          new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPointerOutTrigger,
+        () => {
+            mesh.renderOutline = false;
+        }
+      ));
       mesh.material = BabylonCommon.assignPBRMaterial(this.scene, new BABYLON.Color3(Math.random(), Math.random(), Math.random()));
       mesh.position.set(actor.position.x, actor.position.y, actor.position.z);
     }
