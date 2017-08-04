@@ -60,6 +60,7 @@ export class Line {
     for (const actor of this.actors) {
       this.assignLocationToActor(actor);
     }
+    this.calcEndOfLine();
   }
 
   assignLocationToActor(actor: Actor) {
@@ -68,20 +69,20 @@ export class Line {
     } else {
       const actorInFront = this.actors[this.positionOfActor(actor) - 1]; // get the guy standing in front of you in line
       const myPos: Vector3 = { // a little vector math
-        x: actorInFront.position.x - actor.size.x - this.distBetweenActors,
-        y: 0, // actorInFront.position.y + actor.size.y + this.distBetweenActors,
-        z: 0, // actorInFront.position.z + actor.size.z + this.distBetweenActors,
+        x: actorInFront.position.x - actor.size.x - this.distBetweenActors, // line up in x direction
+        y: 0, // actorInFront.position.y + actor.size.y + this.distBetweenActors, // enable to line up in y direction
+        z: 0, // actorInFront.position.z + actor.size.z + this.distBetweenActors, // enable to line up in z direction
       };
       actor.position = myPos;
 
     }
   }
 
-  calcEndOfLine() {
-    // TODO
-    // based on the start location, number of actors, width of each actor, and the distance between actors
-    // we can find the end of the line location, assuming a line vector / direction it's pointed
-    // ((this.startLoc) + (this.distanceBetweenActors)) * (this.actors.length - 1)
+  // find the vector3 position of the last actor in line
+  calcEndOfLine(): Vector3 {
+    const positionOfLastInLine = this.actors[this.actors.length - 1].position;
+    this.endLoc = positionOfLastInLine;
+    return positionOfLastInLine;
   }
 
 }

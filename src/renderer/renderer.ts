@@ -12,6 +12,7 @@ export class Renderer {
   private camera: BABYLON.Camera;
   private engineAndScene: BabylonCommon.EngineAndScene;
   private assetManager: BABYLON.AssetsManager;
+  private actionManager: BABYLON.ActionManager;
   private line: Line;
 
   constructor(canvas: HTMLCanvasElement) {
@@ -46,7 +47,7 @@ export class Renderer {
 
     this.line = new Line();
     this.createActors(this.line);
-    this.scene.debugLayer.show();
+    // this.scene.debugLayer.show();
   }
 
   playWithThings() {
@@ -70,7 +71,14 @@ export class Renderer {
   createMeshForEachActor(actors: Actor[], srcMesh: BABYLON.AbstractMesh){
     for (const actor of actors){
       const mesh = srcMesh.clone(actor.name);
-      mesh.isVisible = true;
+      mesh.isVisible = true; // make visible, since source mesh is hidden
+      mesh.actionManager = new BABYLON.ActionManager(this.scene); // add action manager to each mesh
+      mesh.actionManager.registerAction( // register a mouseover action to each mesh
+        new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPointerOverTrigger,
+          () => {
+            console.log(`${mesh.name} is number ${this.line.positionOfActor(actor)} in line`);
+         }
+        ));
       mesh.material = BabylonCommon.assignPBRMaterial(this.scene, new BABYLON.Color3(Math.random(), Math.random(), Math.random()));
       mesh.position.set(actor.position.x, actor.position.y, actor.position.z);
     }
