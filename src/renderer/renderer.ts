@@ -11,25 +11,22 @@ export class Renderer {
   private scene: BABYLON.Scene;
   private camera: BABYLON.Camera;
   private engineAndScene: BabylonCommon.EngineAndScene;
-  private beveledCube: BABYLON.AbstractMesh;
   private assetManager: BABYLON.AssetsManager;
 
   constructor(canvas: HTMLCanvasElement) {
     this.initialize(canvas);
     this.loadModels();
-    // this.assetManager.onFinish = () => {
+    this.assetManager.onFinish = () => {
       this.buildScene(canvas);
       this.renderLoop(this.engineAndScene);
       this.playWithThings();
-    // };
-    this.assetManager.load();
+    };
   }
 
   loadModels() {
     this.assetManager = new BABYLON.AssetsManager(this.scene);
     const loadMesh = this.assetManager.addMeshTask('bCubeLoad', 'Cube', 'assets/', 'cube_scene.babylon');
-    this.assetManager.onFinish = function(task){ };
-    // this.assetManager.load();
+    this.assetManager.load();
   }
 
   initialize(canvas: HTMLCanvasElement) {
@@ -54,10 +51,13 @@ export class Renderer {
     const actor2 = new Actor();
     actor2.name = 'carl';
     line.addActorToBack(actor2);
-    console.log(`beveledCube: `, this.beveledCube);
+    const mesh = this.scene.getMeshByName('Cube');
   }
 
-  playWithThings() {}
+  playWithThings() {
+    const cube1 = this.scene.getMeshByName('Cube');
+    cube1.isVisible = false;
+  }
 
   renderLoop(eAndS: BabylonCommon.EngineAndScene) {
     eAndS.engine.runRenderLoop(() => {
