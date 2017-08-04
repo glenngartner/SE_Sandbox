@@ -76,16 +76,18 @@ export class Renderer {
       mesh.actionManager.registerAction( // register a mouseover action to each mesh
         new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPointerOverTrigger,
           () => {
-            mesh.outlineWidth = .15;
+            mesh.outlineWidth = .1;
             mesh.outlineColor = BABYLON.Color3.Yellow();
             mesh.renderOutline = true;
-            console.log(`${mesh.name} is number ${this.line.positionOfActor(actor)} in line`);
+            mesh.scaling.set(.6, .6, .6);
+            console.log(`${mesh.name} is number ${this.line.positionOfActor(actor) + 1} in line`);
          }
         ));
         mesh.actionManager.registerAction( // register a mouse out event
           new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPointerOutTrigger,
         () => {
             mesh.renderOutline = false;
+            mesh.scaling.set(.5, .5, .5);
         }
       ));
       mesh.material = BabylonCommon.assignPBRMaterial(this.scene, new BABYLON.Color3(Math.random(), Math.random(), Math.random()));
