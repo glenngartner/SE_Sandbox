@@ -17,7 +17,11 @@ export function createEngineAndScene(canvas: HTMLCanvasElement): EngineAndScene 
   return {engine: engine, scene: scene};
 }
 
-export function assignPBRMaterial(scene: BABYLON.Scene, baseColor ?: BABYLON.Color3, metallic ?: number, roughness ?: number): BABYLON.PBRMetallicRoughnessMaterial {
+export function assignPBRMaterial(
+  scene: BABYLON.Scene,
+  baseColor ?: BABYLON.Color3,
+  metallic ?: number,
+  roughness ?: number): BABYLON.PBRMetallicRoughnessMaterial {
   const mat = new BABYLON.PBRMetallicRoughnessMaterial('', scene);
   baseColor != null ? mat.baseColor = baseColor : mat.baseColor = DEFAULTBASECOLOR;
   metallic != null ? mat.metallic = metallic : mat.metallic = DEFAULTMETALLIC;
@@ -32,14 +36,17 @@ export function createOrbitCamAndAttach(scene: BABYLON.Scene, canvas: HTMLCanvas
 }
 
 // add post processing pipeline
-export function addPostProcessingPipeline(scene: BABYLON.Scene, camera: BABYLON.Camera[], pipelineName: string): BABYLON.DefaultRenderingPipeline {
+export function addPostProcessingPipeline(
+  scene: BABYLON.Scene,
+  camera: BABYLON.Camera[],
+  pipelineName: string): BABYLON.DefaultRenderingPipeline {
   const defaultPipeline = new BABYLON.DefaultRenderingPipeline(pipelineName, true, scene, camera);
   defaultPipeline.bloomEnabled = true;
   defaultPipeline.fxaaEnabled = true;
   defaultPipeline.bloomWeight = 0.1;
   defaultPipeline.imageProcessing.vignetteEnabled = true;
   defaultPipeline.imageProcessing.toneMappingEnabled = true;
-  defaultPipeline.imageProcessing.contrast = 1.5;
+  // defaultPipeline.imageProcessing.contrast = .5;
   defaultPipeline.imageProcessing.exposure = 1.6;
   return defaultPipeline;
 }

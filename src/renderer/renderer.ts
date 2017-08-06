@@ -1,10 +1,7 @@
-﻿import * as BabylonCommon from '../common/babylonCommon';
-import {
-  Line
-} from '../logic/line';
-import {
-  Actor
-} from '../logic/actor';
+﻿import * as BabylonCommon from '../common/BabylonCommon';
+import { Line } from '../logic/line';
+import { Actor } from '../logic/actor';
+import { GLTFLoader} from './gltf_loader';
 
 export class Renderer {
   private engine: BABYLON.Engine;
@@ -17,18 +14,21 @@ export class Renderer {
 
   constructor(canvas: HTMLCanvasElement) {
     this.initialize(canvas);
+    // const gltFLoad = new GLTFLoader(this.engineAndScene);
     this.loadModels();
     this.assetManager.onFinish = () => {
       this.buildScene(canvas);
       this.renderLoop(this.engineAndScene);
       this.playWithThings();
     };
+    // this.scene.debugLayer.show();
   }
 
   loadModels() {
     this.assetManager = new BABYLON.AssetsManager(this.scene);
     const loadMesh = this.assetManager.addMeshTask('bCubeLoad', 'Cube', 'assets/', 'cube_scene.babylon');
-    const loadMesh2 = this.assetManager.addMeshTask('bCubeAnimLoad', 'cube_anim', 'assets/', 'animated_cube.babylon');
+    // const loadMesh2 = this.assetManager.addMeshTask('bCubeAnimLoad', 'cube_anim', 'assets/', 'animated_cube.babylon');
+    // const loadgltf = this.assetManager.addMeshTask('loadGltf', 'cube_anim', 'assets/', 'animated_cube.babylon');
     this.assetManager.load();
   }
 
@@ -36,34 +36,33 @@ export class Renderer {
     this.engineAndScene = BabylonCommon.createEngineAndScene(canvas);
     this.engine = this.engineAndScene.engine;
     this.scene = this.engineAndScene.scene;
-  }
-
-  buildScene(canvas: HTMLCanvasElement) {
     this.scene.clearColor = new BABYLON.Color4(1, 1, 1, 0);
-    this.camera = BabylonCommon.createOrbitCamAndAttach(this.scene, canvas, 'cam1');
-
-    const light = new BABYLON.DirectionalLight('sunlight', new BABYLON.Vector3(-1, -1, -1), this.scene);
-
-    const postProcessing = BabylonCommon.addPostProcessingPipeline(this.scene, [this.camera], 'defaultPipeline');
-
-    this.line = new Line();
-    this.createActors(this.line);
     // this.scene.debugLayer.show();
   }
 
+  buildScene(canvas: HTMLCanvasElement) {
+    this.camera = BabylonCommon.createOrbitCamAndAttach(this.scene, canvas, 'cam1');
+    const light = new BABYLON.DirectionalLight('sunlight', new BABYLON.Vector3(-1, -1, -1), this.scene);
+    const postProcessing = BabylonCommon.addPostProcessingPipeline(this.scene, [this.camera], 'defaultPipeline');
+
+  }
+
   playWithThings() {
+    this.line = new Line();
+    this.createActors(this.line);
+    // this.scene.debugLayer.show();
     const cubeGeneric = this.scene.getMeshByName('Cube');
     cubeGeneric.scaling = new BABYLON.Vector3(.5, .5, .5);
     cubeGeneric.isVisible = false;
     cubeGeneric.material = BabylonCommon.assignPBRMaterial(this.scene, BABYLON.Color3.Red());
     this.createMeshForEachActor(this.line.actors, cubeGeneric);
 
-    const cubeAnim = this.scene.getMeshByName('cube_anim');
-    cubeAnim.actionManager = new BABYLON.ActionManager(this.scene);
-    this.executeCodeOnAction(cubeAnim, BABYLON.ActionManager.OnPointerOverTrigger, () => {
-      console.log(`over cubeAnim`);
-      // cubeAnim.material.co
-    });
+    // const cubeAnim = this.scene.getMeshByName('cube_anim');
+    // cubeAnim.actionManager = new BABYLON.ActionManager(this.scene);
+    // this.executeCodeOnAction(cubeAnim, BABYLON.ActionManager.OnPointerOverTrigger, () => {
+    //   console.log(`over cubeAnim`);
+    //   // cubeAnim.material.co
+    // });
   }
 
   createActors(line: Line) {

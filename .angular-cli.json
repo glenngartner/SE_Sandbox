@@ -22,7 +22,8 @@
         "styles.css"
       ],
       "scripts": [
-        "../node_modules/babylonjs/dist/preview release/babylon.js"
+        "../node_modules/babylonjs/dist/preview release/babylon.js",
+        "../node_modules/babylonjs/dist/preview release/loaders/babylon.glTFFileLoader.min.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {
