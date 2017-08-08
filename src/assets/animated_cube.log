@@ -4,21 +4,20 @@ Exporter version: 5.4.0, Blender version: 2.78 (sub 0)
 		selected layers only:  false
 		flat shading entire scene:  false
 		inline textures:  false
-		texture directory:  F:\Dropbox\workspace\Bloc\Part3\DataStructures\dsPrototypes\src\assets\
+		texture directory:  /home/g/Documents/workspace/web/SE_Sandobx/src/assets/
 	Python World class constructor completed
-	processing begun of mesh:  cube_anim
+	processing begun of mesh:  animCube
 		animation processing begun
-			processing action CubeAction:  in[1 - 31], out[0 - 31]
+			processing action CubeAction:  in[1 - 60], out[0 - 60]
 		processing begun of Standard material:  Material
-		num positions      :  216
-		num normals        :  216
+		num positions      :  96
+		num normals        :  96
 		num uvs            :  0
 		num uvs2           :  0
 		num colors         :  0
-		num indices        :  1284
+		num indices        :  564
 	processing begun of camera (UniversalCamera):  Camera
-	processing begun of light (POINT):  Lamp
 ========= Writing of scene file started =========
 ========= Writing of scene file completed =========
 ========= end of processing =========
-elapsed time:  0 min, 0.0436 secs
+elapsed time:  0 min, 0.0318 secs

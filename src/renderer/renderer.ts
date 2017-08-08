@@ -1,7 +1,13 @@
 ﻿import * as BabylonCommon from '../common/BabylonCommon';
-import { Line } from '../logic/line';
-import { Actor } from '../logic/actor';
-import { GLTFLoader} from './gltf_loader';
+import {
+  Line
+} from '../logic/line';
+import {
+  Actor
+} from '../logic/actor';
+import {
+  GLTFLoader
+} from './gltf_loader';
 
 export class Renderer {
   private engine: BABYLON.Engine;
@@ -20,6 +26,7 @@ export class Renderer {
       this.buildScene(canvas);
       this.renderLoop(this.engineAndScene);
       this.playWithThings();
+      this.loadAnimMesh();
     };
     // this.scene.debugLayer.show();
   }
@@ -29,7 +36,19 @@ export class Renderer {
     const loadMesh = this.assetManager.addMeshTask('bCubeLoad', 'Cube', 'assets/', 'cube_scene.babylon');
     // const loadMesh2 = this.assetManager.addMeshTask('bCubeAnimLoad', 'cube_anim', 'assets/', 'animated_cube.babylon');
     // const loadgltf = this.assetManager.addMeshTask('loadGltf', 'cube_anim', 'assets/', 'animated_cube.babylon');
+    const loadMesh2 = this.assetManager.addMeshTask('animCubeTask', 'animCube', 'assets/', 'animated_cube.babylon');
     this.assetManager.load();
+  }
+
+  loadAnimMesh() {
+    const animMesh = this.scene.getMeshByName('animCube');
+    // debugger;
+    animMesh.actionManager = new BABYLON.ActionManager(this.scene);
+    console.log(`animMesh animations: `, animMesh.animations);
+    this.executeCodeOnAction(animMesh, BABYLON.ActionManager.OnPointerOverTrigger, () => {
+      console.log('animation begins now!!');
+      this.scene.beginAnimation(animMesh, 0, 60, false);
+    });
   }
 
   initialize(canvas: HTMLCanvasElement) {
@@ -44,7 +63,6 @@ export class Renderer {
     this.camera = BabylonCommon.createOrbitCamAndAttach(this.scene, canvas, 'cam1');
     const light = new BABYLON.DirectionalLight('sunlight', new BABYLON.Vector3(-1, -1, -1), this.scene);
     const postProcessing = BabylonCommon.addPostProcessingPipeline(this.scene, [this.camera], 'defaultPipeline');
-
   }
 
   playWithThings() {
@@ -75,13 +93,13 @@ export class Renderer {
     line.updateLocationOfAllActors();
   }
 
-  executeCodeOnAction(mesh: BABYLON.AbstractMesh, trigger: any, callback: (evt: BABYLON.ActionEvent) => void ) {
+  executeCodeOnAction(mesh: BABYLON.AbstractMesh, trigger: any, callback: (evt: BABYLON.ActionEvent) => void) {
     mesh.actionManager.registerAction(
       new BABYLON.ExecuteCodeAction(trigger, callback));
   }
 
   createMeshForEachActor(actors: Actor[], srcMesh: BABYLON.AbstractMesh) {
-    for (const actor of actors){
+    for (const actor of actors) {
       const mesh = srcMesh.clone(actor.name);
       mesh.isVisible = true; // make visible, since source mesh is hidden
       mesh.actionManager = new BABYLON.ActionManager(this.scene); // add action manager to each mesh
@@ -93,15 +111,15 @@ export class Renderer {
             mesh.renderOutline = true;
             mesh.scaling.set(.6, .6, .6);
             console.log(`${mesh.name} is number ${this.line.positionOfActor(actor) + 1} in line`);
-         }
+          }
         ));
-        mesh.actionManager.registerAction( // register a mouse out event
-          new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPointerOutTrigger,
-        () => {
+      mesh.actionManager.registerAction( // register a mouse out event
+        new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPointerOutTrigger,
+          () => {
             mesh.renderOutline = false;
             mesh.scaling.set(.5, .5, .5);
-        }
-      ));
+          }
+        ));
       mesh.material = BabylonCommon.assignPBRMaterial(this.scene, new BABYLON.Color3(Math.random(), Math.random(), Math.random()));
       mesh.position.set(actor.position.x, actor.position.y, actor.position.z);
     }
