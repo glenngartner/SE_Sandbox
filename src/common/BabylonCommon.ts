@@ -26,10 +26,11 @@ export function assignPBRMaterial(
   baseColor != null ? mat.baseColor = baseColor : mat.baseColor = DEFAULTBASECOLOR;
   metallic != null ? mat.metallic = metallic : mat.metallic = DEFAULTMETALLIC;
   roughness != null ? mat.roughness = roughness : mat.roughness = DEFAULTROUGHNESS;
+  mat.environmentTexture = BABYLON.CubeTexture.CreateFromPrefilteredData('../assets/countrySpecularHDR.dds', scene);
   return mat;
 }
 
-export function createOrbitCamAndAttach(scene: BABYLON.Scene, canvas: HTMLCanvasElement, camName: string): BABYLON.ArcRotateCamera{
+export function createOrbitCamAndAttach(scene: BABYLON.Scene, canvas: HTMLCanvasElement, camName: string): BABYLON.ArcRotateCamera {
   const cam = new BABYLON.ArcRotateCamera(camName, 1, .8, 5, new BABYLON.Vector3(0, 0, 0), scene);
   cam.attachControl(canvas);
   return cam;

@@ -17,6 +17,8 @@ export class Renderer {
   private assetManager: BABYLON.AssetsManager;
   private actionManager: BABYLON.ActionManager;
   private line: Line;
+  private mat: BABYLON.PBRMetallicRoughnessMaterial;
+  private env: BABYLON.CubeTexture;
 
   constructor(canvas: HTMLCanvasElement) {
     this.initialize(canvas);
@@ -33,17 +35,19 @@ export class Renderer {
 
   loadModels() {
     this.assetManager = new BABYLON.AssetsManager(this.scene);
-    const loadMesh = this.assetManager.addMeshTask('bCubeLoad', 'Cube', 'assets/', 'cube_scene.babylon');
-    // const loadMesh2 = this.assetManager.addMeshTask('bCubeAnimLoad', 'cube_anim', 'assets/', 'animated_cube.babylon');
-    // const loadgltf = this.assetManager.addMeshTask('loadGltf', 'cube_anim', 'assets/', 'animated_cube.babylon');
-    const loadMesh2 = this.assetManager.addMeshTask('animCubeTask', 'animCube', 'assets/', 'animated_cube.babylon');
+    this.assetManager.addMeshTask('bCubeLoad', 'Cube', 'assets/', 'cube_scene.babylon');
+    this.assetManager.addMeshTask('animCubeTask', 'animCube', 'assets/', 'animated_cube.babylon');
+    this.mat = new BABYLON.PBRMetallicRoughnessMaterial('mat1', this.scene);
+    this.mat.baseTexture = new BABYLON.Texture('../assets/mesh_source_Material_color.png', this.scene);
+    this.mat.metallicRoughnessTexture = new BABYLON.Texture('../assets/mesh_source_Material_met_rough.png', this.scene);
+    this.mat.environmentTexture = BABYLON.CubeTexture.CreateFromPrefilteredData('../assets/countrySpecularHDR.dds', this.scene);
     this.assetManager.load();
   }
 
   loadAnimMesh() {
     const animMesh = this.scene.getMeshByName('animCube');
-    // debugger;
     animMesh.actionManager = new BABYLON.ActionManager(this.scene);
+    animMesh.material = this.mat;
     console.log(`animMesh animations: `, animMesh.animations);
     this.executeCodeOnAction(animMesh, BABYLON.ActionManager.OnPointerOverTrigger, () => {
       console.log('animation begins now!!');
@@ -62,7 +66,7 @@ export class Renderer {
   buildScene(canvas: HTMLCanvasElement) {
     this.camera = BabylonCommon.createOrbitCamAndAttach(this.scene, canvas, 'cam1');
     const light = new BABYLON.DirectionalLight('sunlight', new BABYLON.Vector3(-1, -1, -1), this.scene);
-    const postProcessing = BabylonCommon.addPostProcessingPipeline(this.scene, [this.camera], 'defaultPipeline');
+    BabylonCommon.addPostProcessingPipeline(this.scene, [this.camera], 'defaultPipeline');
   }
 
   playWithThings() {
