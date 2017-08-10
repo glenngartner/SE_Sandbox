@@ -1,3 +1,5 @@
+import * as BabylonCommon from '../../common/BabylonCommon';
+
 export class BasicBabylonRenderer implements BabylonRenderer {
     public scene: BABYLON.Scene;
     private engine: BABYLON.Engine;

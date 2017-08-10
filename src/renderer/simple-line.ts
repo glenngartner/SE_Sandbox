@@ -30,7 +30,7 @@ export class SimpleLine extends BabylonOrbitSun {
     this.mat = new BABYLON.PBRMetallicRoughnessMaterial('mat1', this.scene);
     this.mat.baseTexture = new BABYLON.Texture('../assets/mesh_source_Material_color.png', this.scene);
     this.mat.metallicRoughnessTexture = new BABYLON.Texture('../assets/mesh_source_Material_met_rough.png', this.scene);
-    this.scene.environmentTexture = BABYLON.CubeTexture.CreateFromPrefilteredData('../assets/countrySpecularHDR.dds', this.scene);
+    // this.scene.environmentTexture = BABYLON.CubeTexture.CreateFromPrefilteredData('../assets/countrySpecularHDR.dds', this.scene);
     this.assetManager.load();
   }
 
