@@ -1,5 +1,5 @@
 ﻿import {Component, AfterViewInit, ViewChild} from '@angular/core';
-import {Renderer} from '../renderer/renderer';
+import {SimpleLine} from '../renderer/simple-line';
 
 @Component({
   selector: 'app-root',
@@ -8,15 +8,15 @@ import {Renderer} from '../renderer/renderer';
 })
 export class AppComponent implements AfterViewInit{
   title = 'app';
-  renderer: Renderer;
+  threeDApp: BabylonRenderer;
 
   @ViewChild('renderCanvas')
   canvas: HTMLCanvasElement;
 
-  constructor(){}
+  constructor() {}
 
-  ngAfterViewInit(){
-    let element = <HTMLCanvasElement>document.getElementById('renderCanvas');
-     this.renderer = new Renderer(element);
+  ngAfterViewInit() {
+    const element = <HTMLCanvasElement>document.getElementById('renderCanvas');
+     this.threeDApp = new SimpleLine(element);
   }
 }

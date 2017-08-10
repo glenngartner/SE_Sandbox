@@ -3,3 +3,8 @@ interface Vector3 {
     y: number;
     z: number;
 }
+
+interface BabylonRenderer {
+    scene: BABYLON.Scene;
+    engine: BABYLON.Engine;
+}

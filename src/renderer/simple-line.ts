@@ -9,9 +9,9 @@ import {
   GLTFLoader
 } from './gltf_loader';
 
-export class Renderer {
-  private engine: BABYLON.Engine;
-  private scene: BABYLON.Scene;
+export class SimpleLine implements BabylonRenderer {
+  public engine: BABYLON.Engine;
+  public scene: BABYLON.Scene;
   private camera: BABYLON.Camera;
   private engineAndScene: BabylonCommon.EngineAndScene;
   private assetManager: BABYLON.AssetsManager;
