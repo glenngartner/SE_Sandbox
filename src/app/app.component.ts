@@ -6,9 +6,11 @@ import {SimpleLine} from '../renderer/simple-line';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements AfterViewInit{
-  title = 'app';
+
+export class AppComponent implements AfterViewInit {
   threeDApp: BabylonRenderer;
+  private engine: BABYLON.Engine;
+  public scene: BABYLON.Scene;
 
   @ViewChild('renderCanvas')
   canvas: HTMLCanvasElement;
@@ -17,6 +19,15 @@ export class AppComponent implements AfterViewInit{
 
   ngAfterViewInit() {
     const element = <HTMLCanvasElement>document.getElementById('renderCanvas');
-     this.threeDApp = new SimpleLine(element);
+    this.engine = new BABYLON.Engine(element);
+    this.threeDApp = new SimpleLine(element, this.engine);
+    this.scene = this.threeDApp.scene;
+    this.renderLoop();
+  }
+
+  renderLoop() {
+    this.engine.runRenderLoop(() => {
+      this.scene.render();
+    });
   }
 }

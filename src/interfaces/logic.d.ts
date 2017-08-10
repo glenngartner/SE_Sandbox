@@ -6,5 +6,4 @@ interface Vector3 {
 
 interface BabylonRenderer {
     scene: BABYLON.Scene;
-    engine: BABYLON.Engine;
 }

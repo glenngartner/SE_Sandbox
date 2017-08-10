@@ -1,4 +1,5 @@
-﻿import * as BabylonCommon from '../common/BabylonCommon';
+﻿import { BasicBabylonRenderer } from './basic-babylon-renderer';
+import * as BabylonCommon from '../common/BabylonCommon';
 import {
   Line
 } from '../logic/line';
@@ -9,9 +10,7 @@ import {
   GLTFLoader
 } from './gltf_loader';
 
-export class SimpleLine implements BabylonRenderer {
-  public engine: BABYLON.Engine;
-  public scene: BABYLON.Scene;
+export class SimpleLine extends BasicBabylonRenderer {
   private camera: BABYLON.Camera;
   private engineAndScene: BabylonCommon.EngineAndScene;
   private assetManager: BABYLON.AssetsManager;
@@ -20,15 +19,26 @@ export class SimpleLine implements BabylonRenderer {
   private mat: BABYLON.PBRMetallicRoughnessMaterial;
   private env: BABYLON.CubeTexture;
 
-  constructor(canvas: HTMLCanvasElement) {
+  constructor(canvas: HTMLCanvasElement, engine: BABYLON.Engine) {
+    super(canvas, engine);
     this.initialize(canvas);
     this.loadModels();
     this.assetManager.onFinish = () => {
       this.buildScene(canvas);
-      this.renderLoop(this.engineAndScene);
       this.playWithThings();
       this.loadAnimMesh();
     };
+  }
+
+  initialize(canvas: HTMLCanvasElement) {
+    // this.scene = new BABYLON.Scene(this.engine);
+    this.scene.clearColor = new BABYLON.Color4(1, 1, 1, 0);
+  }
+
+  buildScene(canvas: HTMLCanvasElement) {
+    this.camera = BabylonCommon.createOrbitCamAndAttach(this.scene, canvas, 'cam1');
+    const light = new BABYLON.DirectionalLight('sunlight', new BABYLON.Vector3(-1, -1, -1), this.scene);
+    BabylonCommon.addPostProcessingPipeline(this.scene, [this.camera], 'defaultPipeline');
   }
 
   loadModels() {
@@ -51,19 +61,6 @@ export class SimpleLine implements BabylonRenderer {
       console.log('animation begins now!!');
       this.scene.beginAnimation(animMesh, 0, 60, false);
     });
-  }
-
-  initialize(canvas: HTMLCanvasElement) {
-    this.engineAndScene = BabylonCommon.createEngineAndScene(canvas);
-    this.engine = this.engineAndScene.engine;
-    this.scene = this.engineAndScene.scene;
-    this.scene.clearColor = new BABYLON.Color4(1, 1, 1, 0);
-  }
-
-  buildScene(canvas: HTMLCanvasElement) {
-    this.camera = BabylonCommon.createOrbitCamAndAttach(this.scene, canvas, 'cam1');
-    const light = new BABYLON.DirectionalLight('sunlight', new BABYLON.Vector3(-1, -1, -1), this.scene);
-    BabylonCommon.addPostProcessingPipeline(this.scene, [this.camera], 'defaultPipeline');
   }
 
   playWithThings() {
@@ -118,9 +115,4 @@ export class SimpleLine implements BabylonRenderer {
     }
   }
 
-  renderLoop(eAndS: BabylonCommon.EngineAndScene) {
-    eAndS.engine.runRenderLoop(() => {
-      eAndS.scene.render();
-    });
-  }
 }
