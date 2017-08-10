@@ -1,16 +1,10 @@
-﻿import { BasicBabylonRenderer } from './basic-babylon-renderer';
+﻿import { BabylonOrbitSun } from './renderer_types/babylon-orbit-sun';
 import * as BabylonCommon from '../common/BabylonCommon';
-import {
-  Line
-} from '../logic/line';
-import {
-  Actor
-} from '../logic/actor';
-import {
-  GLTFLoader
-} from './gltf_loader';
+import { Line } from '../logic/line';
+import { Actor } from '../logic/actor';
+import { GLTFLoader } from './gltf_loader';
 
-export class SimpleLine extends BasicBabylonRenderer {
+export class SimpleLine extends BabylonOrbitSun {
   private camera: BABYLON.Camera;
   private engineAndScene: BabylonCommon.EngineAndScene;
   private assetManager: BABYLON.AssetsManager;
@@ -21,24 +15,12 @@ export class SimpleLine extends BasicBabylonRenderer {
 
   constructor(canvas: HTMLCanvasElement, engine: BABYLON.Engine) {
     super(canvas, engine);
-    this.initialize(canvas);
+    this.scene.clearColor = new BABYLON.Color4(1, 1, 1, 0);
     this.loadModels();
     this.assetManager.onFinish = () => {
-      this.buildScene(canvas);
       this.playWithThings();
       this.loadAnimMesh();
     };
-  }
-
-  initialize(canvas: HTMLCanvasElement) {
-    // this.scene = new BABYLON.Scene(this.engine);
-    this.scene.clearColor = new BABYLON.Color4(1, 1, 1, 0);
-  }
-
-  buildScene(canvas: HTMLCanvasElement) {
-    this.camera = BabylonCommon.createOrbitCamAndAttach(this.scene, canvas, 'cam1');
-    const light = new BABYLON.DirectionalLight('sunlight', new BABYLON.Vector3(-1, -1, -1), this.scene);
-    BabylonCommon.addPostProcessingPipeline(this.scene, [this.camera], 'defaultPipeline');
   }
 
   loadModels() {
