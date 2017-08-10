@@ -22,7 +22,6 @@ export class Renderer {
 
   constructor(canvas: HTMLCanvasElement) {
     this.initialize(canvas);
-    // const gltFLoad = new GLTFLoader(this.engineAndScene);
     this.loadModels();
     this.assetManager.onFinish = () => {
       this.buildScene(canvas);
@@ -30,7 +29,6 @@ export class Renderer {
       this.playWithThings();
       this.loadAnimMesh();
     };
-    // this.scene.debugLayer.show();
   }
 
   loadModels() {
@@ -40,7 +38,7 @@ export class Renderer {
     this.mat = new BABYLON.PBRMetallicRoughnessMaterial('mat1', this.scene);
     this.mat.baseTexture = new BABYLON.Texture('../assets/mesh_source_Material_color.png', this.scene);
     this.mat.metallicRoughnessTexture = new BABYLON.Texture('../assets/mesh_source_Material_met_rough.png', this.scene);
-    this.mat.environmentTexture = BABYLON.CubeTexture.CreateFromPrefilteredData('../assets/countrySpecularHDR.dds', this.scene);
+    this.scene.environmentTexture = BABYLON.CubeTexture.CreateFromPrefilteredData('../assets/countrySpecularHDR.dds', this.scene);
     this.assetManager.load();
   }
 
@@ -60,7 +58,6 @@ export class Renderer {
     this.engine = this.engineAndScene.engine;
     this.scene = this.engineAndScene.scene;
     this.scene.clearColor = new BABYLON.Color4(1, 1, 1, 0);
-    // this.scene.debugLayer.show();
   }
 
   buildScene(canvas: HTMLCanvasElement) {
@@ -72,19 +69,11 @@ export class Renderer {
   playWithThings() {
     this.line = new Line();
     this.createActors(this.line);
-    // this.scene.debugLayer.show();
     const cubeGeneric = this.scene.getMeshByName('Cube');
     cubeGeneric.scaling = new BABYLON.Vector3(.5, .5, .5);
     cubeGeneric.isVisible = false;
     cubeGeneric.material = BabylonCommon.assignPBRMaterial(this.scene, BABYLON.Color3.Red());
     this.createMeshForEachActor(this.line.actors, cubeGeneric);
-
-    // const cubeAnim = this.scene.getMeshByName('cube_anim');
-    // cubeAnim.actionManager = new BABYLON.ActionManager(this.scene);
-    // this.executeCodeOnAction(cubeAnim, BABYLON.ActionManager.OnPointerOverTrigger, () => {
-    //   console.log(`over cubeAnim`);
-    //   // cubeAnim.material.co
-    // });
   }
 
   createActors(line: Line) {

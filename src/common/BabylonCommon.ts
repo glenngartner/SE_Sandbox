@@ -17,6 +17,10 @@ export function createEngineAndScene(canvas: HTMLCanvasElement): EngineAndScene 
   return {engine: engine, scene: scene};
 }
 
+export function createEnvironmentTexture(ddsTexturePath: string, scene: BABYLON.Scene) {
+  BABYLON.CubeTexture.CreateFromPrefilteredData(ddsTexturePath, this.scene);
+}
+
 export function assignPBRMaterial(
   scene: BABYLON.Scene,
   baseColor ?: BABYLON.Color3,
@@ -26,7 +30,6 @@ export function assignPBRMaterial(
   baseColor != null ? mat.baseColor = baseColor : mat.baseColor = DEFAULTBASECOLOR;
   metallic != null ? mat.metallic = metallic : mat.metallic = DEFAULTMETALLIC;
   roughness != null ? mat.roughness = roughness : mat.roughness = DEFAULTROUGHNESS;
-  mat.environmentTexture = BABYLON.CubeTexture.CreateFromPrefilteredData('../assets/countrySpecularHDR.dds', scene);
   return mat;
 }
 
