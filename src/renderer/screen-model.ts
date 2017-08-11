@@ -10,6 +10,7 @@ constructor(canvas: HTMLCanvasElement, engine: BABYLON.Engine) {
     super(canvas, engine);
     const cam = <BABYLON.ArcRotateCamera>this.scene.activeCamera;
     cam.radius = 5;
+    cam.setPosition(new BABYLON.Vector3(-5, 1, -1));
     this.loadModels();
     // this.drawPixels();
 }
