@@ -6,7 +6,7 @@ export class ScreenModel extends BabylonOrbitSun {
 
     private screenLogic: ScreenLogic;
     public pixelGeo: BABYLON.Mesh[] = [];
-    private colorGradientFrequency: number = .002;
+    private colorGradientFrequency: number = .001;
     private pixelDensity = 10;
 
 constructor(canvas: HTMLCanvasElement, engine: BABYLON.Engine) {
@@ -19,10 +19,13 @@ constructor(canvas: HTMLCanvasElement, engine: BABYLON.Engine) {
 }
 
     loadModels() {
-        // const assetManager = new BABYLON.AssetsManager(this.scene);
+        const assetManager = new BABYLON.AssetsManager(this.scene);
         BABYLON.SceneLoader.Append('assets/', 'tv.glb', this.scene, (scene) => {
             const topLeftMarker = scene.getMeshByName('topLeftMT');
             const botRightMarker = scene.getMeshByName('bottomRightMT');
+        // BABYLON.SceneLoader.Append('assets/', 'tv_tall.glb', this.scene, (scene) => {
+        //     const topLeftMarker = scene.getMeshByName('topLeftMT.001');
+        //     const botRightMarker = scene.getMeshByName('bottomRightMT.001');
             this.screenLogic = new ScreenLogic(
             {x: topLeftMarker.position.x, y: topLeftMarker.position.y, z: topLeftMarker.position.z},
             {x: botRightMarker.position.x, y: botRightMarker.position.y, z: botRightMarker.position.z},
