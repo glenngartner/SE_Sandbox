@@ -6,6 +6,8 @@ export class ScreenModel extends BabylonOrbitSun {
 
     private screenLogic: ScreenLogic;
     public pixelGeo: BABYLON.Mesh[] = [];
+    private colorGradientFrequency: number = .002;
+    private pixelDensity = 10;
 
 constructor(canvas: HTMLCanvasElement, engine: BABYLON.Engine) {
     super(canvas, engine);
@@ -24,7 +26,7 @@ constructor(canvas: HTMLCanvasElement, engine: BABYLON.Engine) {
             this.screenLogic = new ScreenLogic(
             {x: topLeftMarker.position.x, y: topLeftMarker.position.y, z: topLeftMarker.position.z},
             {x: botRightMarker.position.x, y: botRightMarker.position.y, z: botRightMarker.position.z},
-            12);
+            this.pixelDensity);
             this.drawPixels();
         });
     }
@@ -52,7 +54,7 @@ constructor(canvas: HTMLCanvasElement, engine: BABYLON.Engine) {
             material.emissiveColor = new BABYLON.Color3(Math.sin(i), Math.cos(i), Math.tan(i));
             box.material = material;
             this.pixelGeo.push(box);
-            i += .001;
+            i += this.colorGradientFrequency;
         }
     }
 
