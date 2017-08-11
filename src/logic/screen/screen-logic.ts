@@ -9,11 +9,9 @@ export class ScreenLogic {
 
     constructor(public topLeftCorner: Vector3, public bottomRightCorner: Vector3, public pixelsPerUnit: number, ) {
         this.calculateScreenExtents();
-        // this.drawRow(this.topLeftCorner.y);
-        this.drawRows();
         this.screenDiagonal = BabylonCommon.euclidianDistanceBetweenVec3Points(topLeftCorner, bottomRightCorner);
-        this.calculateScreenExtents();
         this.distBetweenPixels = this.screenExtents.z / pixelsPerUnit;
+        this.drawRows();
     }
 
     drawPixels() {
@@ -26,7 +24,7 @@ export class ScreenLogic {
         this.screenExtents.z = Math.abs(this.topLeftCorner.z - this.bottomRightCorner.z);
     }
 
-    drawRows() {
+    drawRows() { // determine the height to begin drawing a row, then ask drawRow() to do its thing
         const unitsHigh = this.screenExtents.y * this.pixelsPerUnit;
         for (let y = this.topLeftCorner.y; y > this.bottomRightCorner.y; y -= this.screenExtents.y / unitsHigh) {
             console.log('y is: ', y);
@@ -35,13 +33,19 @@ export class ScreenLogic {
     }
 
     drawRow(height: number) {
-        const pixelsToDraw = this.screenExtents.z * this.pixelsPerUnit;
-        for (let i = 0; i < pixelsToDraw; i ++) {
+        const unitsAcross = this.screenExtents.z * this.pixelsPerUnit;
+        for (let z = this.topLeftCorner.z; z > this.bottomRightCorner.z; z -= this.screenExtents.z / unitsAcross) {
             const pixel = new Pixel();
             pixel.position.y = height;
-            pixel.position.z = (this.topLeftCorner.z - i) / this.pixelsPerUnit;
+            pixel.position.z = z;
             this.pixels.push(pixel);
         }
+        // for (let i = 0; i < unitsAcross; i ++) {
+        //     const pixel = new Pixel();
+        //     pixel.position.y = height;
+        //     pixel.position.z = (this.topLeftCorner.z - i) / this.pixelsPerUnit;
+        //     this.pixels.push(pixel);
+        // }
     }
 
     drawColumn() {}

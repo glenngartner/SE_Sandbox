@@ -6,7 +6,7 @@ export class BabylonOrbitSun extends BasicBabylonRenderer {
     private orbitCam: BABYLON.Camera;
     private sunlight: BABYLON.DirectionalLight;
 
-    constructor(canvas: HTMLCanvasElement, engine: BABYLON.Engine){
+    constructor(canvas: HTMLCanvasElement, engine: BABYLON.Engine) {
         super(canvas, engine);
         this.orbitCam = BabylonCommon.createOrbitCamAndAttach(this.scene, canvas, 'cam1');
         this.sunlight = new BABYLON.DirectionalLight('sunlight', new BABYLON.Vector3(-1, -1, -1), this.scene);
