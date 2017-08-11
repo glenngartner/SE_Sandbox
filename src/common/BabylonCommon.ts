@@ -73,3 +73,11 @@ export function loadMeshFromSceneFile(meshName: string, sceneURL: string, babylo
   });
   return mesh;
 }
+
+export function euclidianDistanceBetweenVec3Points(pt1: Vector3, pt2: Vector3): number {
+  const xPow = Math.pow(pt1.x - pt2.x, 2);
+  const yPow = Math.pow(pt1.y - pt2.y, 2);
+  const zPow = Math.pow(pt1.z - pt2.z, 2);
+  const distance: number = Math.sqrt(xPow + yPow + zPow);
+  return distance;
+}
