@@ -5,8 +5,7 @@ export class ScreenLogic {
     public distBetweenPixels: number;
     private screenDiagonal: number;
     private screenExtents: Vector3 = {x: null, y: null, z: null};
-    pixelRows: Pixel[][] = [];
-    pixelRow: Pixel[] = [];
+    pixels: Pixel[] = [];
 
     constructor(public topLeftCorner: Vector3, public bottomRightCorner: Vector3, public pixelsPerUnit: number, ) {
         this.calculateScreenExtents();
@@ -41,7 +40,7 @@ export class ScreenLogic {
             const pixel = new Pixel();
             pixel.position.y = height;
             pixel.position.z = (this.topLeftCorner.z - i) / this.pixelsPerUnit;
-            this.pixelRow.push(pixel);
+            this.pixels.push(pixel);
         }
     }
 

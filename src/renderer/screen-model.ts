@@ -15,7 +15,7 @@ constructor(canvas: HTMLCanvasElement, engine: BABYLON.Engine) {
 }
 
     drawPixels() { // draw geometry for every pixel in the screen logic
-        for (const pixel of this.screenLogic.pixelRow){
+        for (const pixel of this.screenLogic.pixels){
             const box = BABYLON.MeshBuilder.CreateBox(
                 `pixelBox` + pixel.id, // give each box a uniqe name, based on it's individual ID
                 // make the box 1/4 the size of the distance between pixels, so they sit flush
