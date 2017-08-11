@@ -52,7 +52,7 @@ constructor(canvas: HTMLCanvasElement, engine: BABYLON.Engine) {
             material.emissiveColor = new BABYLON.Color3(Math.sin(i), Math.cos(i), Math.tan(i));
             box.material = material;
             this.pixelGeo.push(box);
-            i += 0.05;
+            i += .001;
         }
     }
 

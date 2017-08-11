@@ -47,7 +47,7 @@ export function addPostProcessingPipeline(
   const defaultPipeline = new BABYLON.DefaultRenderingPipeline(pipelineName, true, scene, camera);
   defaultPipeline.bloomEnabled = true;
   defaultPipeline.fxaaEnabled = true;
-  defaultPipeline.bloomWeight = 0.1;
+  defaultPipeline.bloomWeight = 0.2;
   defaultPipeline.imageProcessing.vignetteEnabled = true;
   defaultPipeline.imageProcessing.toneMappingEnabled = true;
   // defaultPipeline.imageProcessing.contrast = .5;
