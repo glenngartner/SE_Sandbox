@@ -8,4 +8,6 @@ export class BasicBabylonRenderer implements BabylonRenderer {
         this.scene = new BABYLON.Scene(engine);
         this.engine = engine;
     }
+
+    render(num: number) {}
 }

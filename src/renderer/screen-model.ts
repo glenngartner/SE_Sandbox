@@ -5,6 +5,7 @@ import * as BabylonCommon from '../common/BabylonCommon';
 export class ScreenModel extends BabylonOrbitSun {
 
     private screenLogic: ScreenLogic;
+    public pixelGeo: BABYLON.Mesh[] = [];
 
 constructor(canvas: HTMLCanvasElement, engine: BABYLON.Engine) {
     super(canvas, engine);
@@ -29,6 +30,7 @@ constructor(canvas: HTMLCanvasElement, engine: BABYLON.Engine) {
     }
 
     drawPixels() { // draw geometry for every pixel in the screen logic
+        let i = 0;
         for (const pixel of this.screenLogic.pixels ){
             const box = BABYLON.MeshBuilder.CreateBox(
                 `pixelBox` + pixel.id, // give each box a uniqe name, based on it's individual ID
@@ -47,8 +49,21 @@ constructor(canvas: HTMLCanvasElement, engine: BABYLON.Engine) {
                 pixel.position.y - (box.scaling.y / 2), // offset the box's y position by half it's y width
                 pixel.position.z - (box.scaling.z / 2)); // offset the box's z position by half it's z width
             const material = BabylonCommon.assignPBRMaterial(this.scene);
-            material.emissiveColor = new BABYLON.Color3(Math.random (), Math.random(), Math.random());
+            material.emissiveColor = new BABYLON.Color3(Math.sin(i), Math.cos(i), Math.tan(i));
             box.material = material;
+            this.pixelGeo.push(box);
+            i += 0.05;
         }
+    }
+
+    changePixelColor(color: number) {
+        for (const pixelMesh of this.pixelGeo) {
+            const mat = <BABYLON.PBRMetallicRoughnessMaterial>pixelMesh.material;
+            mat.emissiveColor = new BABYLON.Color3(Math.sin(color), Math.sin(color), Math.sin(color));
+        }
+    }
+
+    render(color: number) {
+        this.changePixelColor(color);
     }
 }
