@@ -26,8 +26,8 @@ export class AppComponent implements AfterViewInit {
   startYourEngine() {
     const element = <HTMLCanvasElement>document.getElementById('renderCanvas');
     this.engine = new BABYLON.Engine(element);
-    // this.threeDApp = new SimpleLine(element, this.engine);
-    this.threeDApp = new ScreenModel(element, this.engine);
+    this.threeDApp = new SimpleLine(element, this.engine);
+    // this.threeDApp = new ScreenModel(element, this.engine);
     this.scene = this.threeDApp.scene;
   }
 

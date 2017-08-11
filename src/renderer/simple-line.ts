@@ -1,7 +1,7 @@
 ﻿import { BabylonOrbitSun } from './renderer_types/babylon-orbit-sun';
 import * as BabylonCommon from '../common/BabylonCommon';
-import { Line } from '../logic/line';
-import { Actor } from '../logic/actor';
+import { Line } from '../logic/line/line';
+import { Actor } from '../logic/line/actor';
 import { GLTFLoader } from './gltf_loader';
 
 export class SimpleLine extends BabylonOrbitSun {
