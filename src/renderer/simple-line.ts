@@ -2,7 +2,6 @@
 import * as BabylonCommon from '../common/BabylonCommon';
 import { Line } from '../logic/line/line';
 import { Actor } from '../logic/line/actor';
-import { GLTFLoader } from './gltf_loader';
 
 export class SimpleLine extends BabylonOrbitSun {
   private camera: BABYLON.Camera;

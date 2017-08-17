@@ -1,4 +1,4 @@
-import * as BabylonCommon from '../common/BabylonCommon';
+import * as BabylonCommon from './BabylonCommon';
 
 export class GLTFLoader {
 

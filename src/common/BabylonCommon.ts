@@ -55,6 +55,12 @@ export function addPostProcessingPipeline(
   return defaultPipeline;
 }
 
+export function appendScene(root: string, fileName: string, callback: (task: BABYLON.IAssetTask[]) => void) {
+    // const assetManager = new BABYLON.AssetsManager(this.scene);
+    BABYLON.SceneLoader.Append(root, fileName, this.scene);
+    // assetManager.onFinish = callback;
+}
+
 // add shadows for a mesh
 export function generateShadows(mesh: BABYLON.AbstractMesh, light: BABYLON.DirectionalLight | BABYLON.PointLight) {
   const shadowGen = new BABYLON.ShadowGenerator(256, light);

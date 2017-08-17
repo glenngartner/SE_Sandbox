@@ -19,7 +19,7 @@ constructor(canvas: HTMLCanvasElement, engine: BABYLON.Engine) {
 }
 
     loadModels() {
-        const assetManager = new BABYLON.AssetsManager(this.scene);
+        // const assetManager = new BABYLON.AssetsManager(this.scene);
         BABYLON.SceneLoader.Append('assets/', 'tv.glb', this.scene, (scene) => {
             const topLeftMarker = scene.getMeshByName('topLeftMT');
             const botRightMarker = scene.getMeshByName('bottomRightMT');

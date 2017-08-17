@@ -9,5 +9,16 @@ export class BasicBabylonRenderer implements BabylonRenderer {
         this.engine = engine;
     }
 
+    // this will append a scene from a file, and call the afterLoad() method when loading is complete
+    appendScene(root: string, fileName: string) {
+        // const assetManager = new BABYLON.AssetsManager(this.scene);
+        BABYLON.SceneLoader.Append(root, fileName, this.scene, () => {
+            this.afterLoad();
+        });
+        // assetManager.onFinish = this.afterLoad;
+    }
+
+    afterLoad() {}
+
     render(num: number) {}
 }
