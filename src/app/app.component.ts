@@ -1,4 +1,4 @@
-﻿import { Queue } from '../renderer/queue';
+﻿import { Queue } from '../renderer/queue-render';
 import { ScreenModel } from '../renderer/screen-model';
 import {Component, AfterViewInit, ViewChild} from '@angular/core';
 import {SimpleLine} from '../renderer/simple-line';
