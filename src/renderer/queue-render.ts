@@ -30,6 +30,10 @@ export class Queue extends SimpleLine {
     this.advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI('gui1');
   }
 
+  removeActor(name: string) {
+    console.log(`removed ${name} from line`);
+  }
+
   render() {
     // for (const object of this.meshes){
     //   object.mesh.rotation.y += 0.05;

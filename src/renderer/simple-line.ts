@@ -8,13 +8,14 @@ export class SimpleLine extends BabylonOrbitSun {
   private engineAndScene: BabylonCommon.EngineAndScene;
   private assetManager: BABYLON.AssetsManager;
   private actionManager: BABYLON.ActionManager;
-  private line: Line;
+  public line: Line;
   private mat: BABYLON.PBRMetallicRoughnessMaterial;
   private env: BABYLON.CubeTexture;
-
+  
   constructor(canvas: HTMLCanvasElement, engine: BABYLON.Engine) {
     super(canvas, engine);
     this.scene.clearColor = new BABYLON.Color4(1, 1, 1, 0);
+    this.line = new Line();
     this.loadModels();
     this.assetManager.onFinish = () => {
       this.playWithThings();
@@ -45,7 +46,6 @@ export class SimpleLine extends BabylonOrbitSun {
   }
 
   playWithThings() {
-    this.line = new Line();
     this.createActors(this.line);
     const cubeGeneric = this.scene.getMeshByName('Cube');
     cubeGeneric.scaling = new BABYLON.Vector3(.5, .5, .5);

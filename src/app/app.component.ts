@@ -1,6 +1,6 @@
 ﻿import { Queue } from '../renderer/queue-render';
 import { ScreenModel } from '../renderer/screen-model';
-import {Component, AfterViewInit, ViewChild} from '@angular/core';
+import {Component, ViewChild, OnInit} from '@angular/core';
 import {SimpleLine} from '../renderer/simple-line';
 
 @Component({
@@ -9,7 +9,7 @@ import {SimpleLine} from '../renderer/simple-line';
   styleUrls: ['./app.component.css']
 })
 
-export class AppComponent implements AfterViewInit {
+export class AppComponent implements OnInit {
   threeDApp: BabylonRenderer;
   private engine: BABYLON.Engine;
   public scene: BABYLON.Scene;
@@ -17,9 +17,10 @@ export class AppComponent implements AfterViewInit {
   @ViewChild('renderCanvas')
   canvas: HTMLCanvasElement;
 
-  constructor() {}
+  constructor() {
+  }
 
-  ngAfterViewInit() {
+  ngOnInit() {
     this.startYourEngine();
     this.renderLoop();
   }

@@ -1,6 +1,38 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-2">Left Navbar</div>
+        <!-- nav bar definition -->
+        <div class="col-md-2 border">
+            <hr>
+            <div class="row">
+                <h2>Queue Ops</h2>
+            </div>
+            <div class="row justify-content-center">
+                <h6 class="col-md">Front of Queue</h6>
+                <div class="btn-group col-md" data-toggle="buttons">
+                    <label class="btn-primary" ngbButtonLabel>Add</label>
+                    <label class="btn-danger" ngbButtonLabel>Remove</label>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <h6 class="col-md">End of Queue</h6>
+                <div class="btn-group col-md" data-toggle="buttons">
+                    <label class="btn-primary" ngbButtonLabel>Add</label>
+                    <label class="btn-danger" ngbButtonLabel>Remove</label>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <h2>Actors: </h2>
+            </div>
+            <div *ngFor="let actor of threeDApp.scene.meshes">
+                <div class="row justify-content-center">
+                    <h5 class="col-md-4">{{actor.name}}</h5>
+                    <label class="col-md-4 btn-danger" ngbButtonLabel>Remove</label>
+                </div>
+            </div>
+            <hr>
+        </div>
+        <!-- render viewport -->
         <div class="col-md">
             <canvas id="renderCanvas"></canvas>
         </div>
