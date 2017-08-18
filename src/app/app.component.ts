@@ -36,6 +36,7 @@ export class AppComponent implements AfterViewInit {
   renderLoop() {
     this.engine.runRenderLoop(() => {
       this.scene.render();
+      this.threeDApp.render();
     });
   }
 }

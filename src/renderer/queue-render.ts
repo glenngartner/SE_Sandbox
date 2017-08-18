@@ -1,40 +1,39 @@
-﻿import {
+﻿import { SimpleLine } from './simple-line';
+import { ObjectWithGUI } from './objects/object_with_gui';
+import {
   BabylonOrbitSun
 } from './renderer_types/babylon-orbit-sun';
 
-export class Queue extends BabylonOrbitSun {
+export class Queue extends SimpleLine {
 
   plane: BABYLON.AbstractMesh;
+  advancedTexture: BABYLON.GUI.AdvancedDynamicTexture;
+  meshes: ObjectWithGUI[];
 
   constructor(canvas: HTMLCanvasElement, engine: BABYLON.Engine) {
     super(canvas, engine);
+    this.meshes = [];
 
-    this.appendScene('assets/queue/', 'plane.glb');
+    // this.appendScene('assets/queue/', 'plane.glb');
   }
 
   afterLoad() {
     console.log('plane mesh loaded:', this.scene.getMeshByName('Plane'));
     this.plane = this.scene.getMeshByName('Plane');
     this.drawGUI();
+    // const cube = BABYLON.MeshBuilder.CreateBox('cube1', {size: 1}, this.scene);
+    // const cubeWGui = new ObjectWithGUI('cubeWGui', this.advancedTexture, cube);
+    // this.meshes.push(cubeWGui);
   }
 
   drawGUI() {
-    const advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI('gui1');
-    const rect1 = new BABYLON.GUI.Rectangle();
-    rect1.width = 0.2;
-    rect1.height = '40px';
-    rect1.cornerRadius = 20;
-    rect1.color = 'Orange';
-    rect1.thickness = 4;
-    rect1.background = 'green';
-    advancedTexture.addControl(rect1);
+    this.advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI('gui1');
+  }
 
-    const label = new BABYLON.GUI.TextBlock();
-    label.text = this.plane.name;
-    rect1.addControl(label);
-
-    rect1.linkWithMesh(this.plane);
-    rect1.linkOffsetY = -50;
+  render() {
+    // for (const object of this.meshes){
+    //   object.mesh.rotation.y += 0.05;
+    // }
   }
 
 }

@@ -18,14 +18,14 @@ export class SimpleLine extends BabylonOrbitSun {
     this.loadModels();
     this.assetManager.onFinish = () => {
       this.playWithThings();
-      this.loadAnimMesh();
+      // this.loadAnimMesh();
     };
   }
 
   loadModels() {
     this.assetManager = new BABYLON.AssetsManager(this.scene);
     this.assetManager.addMeshTask('bCubeLoad', 'Cube', 'assets/', 'cube_scene.babylon');
-    this.assetManager.addMeshTask('animCubeTask', 'animCube', 'assets/', 'animated_cube.babylon');
+    // this.assetManager.addMeshTask('animCubeTask', 'animCube', 'assets/', 'animated_cube.babylon');
     this.mat = new BABYLON.PBRMetallicRoughnessMaterial('mat1', this.scene);
     this.mat.baseTexture = new BABYLON.Texture('../assets/mesh_source_Material_color.png', this.scene);
     this.mat.metallicRoughnessTexture = new BABYLON.Texture('../assets/mesh_source_Material_met_rough.png', this.scene);

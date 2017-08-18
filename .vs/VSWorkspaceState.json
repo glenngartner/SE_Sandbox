@@ -1,0 +1,10 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\renderer",
+    "\\src\\renderer\\objects"
+  ],
+  "SelectedNode": "\\src\\renderer\\objects\\object_with_gui.ts",
+  "PreviewInSolutionExplorer": false
+}

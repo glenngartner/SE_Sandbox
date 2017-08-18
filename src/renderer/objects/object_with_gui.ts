@@ -1,4 +1,5 @@
-﻿declare interface GuiParams {
+﻿import { BabylonOrbitSun } from '../renderer_types/babylon-orbit-sun';
+declare interface GuiParams {
   width?: number;
   height?: number;
   color?: string;
@@ -6,34 +7,31 @@
   thickness?: number;
   name?: string;
   cornerRadius?: number;
-
+  offset?: Vector2;
 }
 
-export class ObjectWithGUI extends BABYLON.AbstractMesh {
+export class ObjectWithGUI {
 
-  material: BABYLON.PBRMetallicRoughnessMaterial;
+  mesh: BABYLON.AbstractMesh;
 
   constructor(public name: string,
-              public scene: BABYLON.Scene,
               public guiTexture: BABYLON.GUI.AdvancedDynamicTexture,
-              object?: BABYLON.AbstractMesh) {
-    super(name, scene);
-    if (object != null) {
-      Object.assign(object);
-      this.material = <BABYLON.PBRMetallicRoughnessMaterial> object.material;
-    }
+              object: BABYLON.AbstractMesh) {
+      this.mesh = object;
+      this.mesh.material = object.material;
 
     this.drawGuiRect();
   }
-  
+
   drawGuiRect(params: GuiParams = {
     width: 0.2,
-    height: 4,
+    height: .1,
     color: 'orange',
     thickness: 4,
     background: 'green',
     cornerRadius: 20,
-    name: this.name
+    name: this.name,
+    offset: {x: 0, y: -100}
   }) {
     const rect = new BABYLON.GUI.Rectangle(params.name);
     rect.width = params.width;
@@ -43,6 +41,13 @@ export class ObjectWithGUI extends BABYLON.AbstractMesh {
     rect.thickness = params.thickness;
     rect.background = params.background;
     this.guiTexture.addControl(rect);
+    this.linkGUI(rect, params.offset);
+  }
+
+  linkGUI(guiObj: BABYLON.GUI.Rectangle, offset: Vector2) {
+      guiObj.linkWithMesh(this.mesh);
+      guiObj.linkOffsetX = offset.x;
+      guiObj.linkOffsetY = offset.y;
   }
 
 }

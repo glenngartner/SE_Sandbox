@@ -68,7 +68,5 @@ constructor(canvas: HTMLCanvasElement, engine: BABYLON.Engine) {
         }
     }
 
-    render(color: number) {
-        this.changePixelColor(color);
-    }
+    render() {}
 }

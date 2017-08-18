@@ -20,5 +20,5 @@ export class BasicBabylonRenderer implements BabylonRenderer {
 
     afterLoad() {}
 
-    render(num: number) {}
+    render() {}
 }

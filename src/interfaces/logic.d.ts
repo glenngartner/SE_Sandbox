@@ -1,10 +1,13 @@
-interface Vector3 {
+declare interface Vector2 {
     x: number;
     y: number;
+}
+
+declare interface Vector3 extends Vector2 {
     z: number;
 }
 
-interface BabylonRenderer {
+declare interface BabylonRenderer {
     scene: BABYLON.Scene;
-    render(num: number); 
+    render(num?: number); 
 }
