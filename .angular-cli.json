@@ -22,9 +22,9 @@
         "styles.css"
       ],
       "scripts": [
-        "../Babylon.js/dist/preview release/babylon.js",
-        "../Babylon.js/dist/preview release/loaders/babylon.glTFFileLoader.min.js",
-        "../Babylon.js/dist/preview release/gui/babylon.gui.min.js"
+        "scripts/babylon.js",
+        "scripts/babylon.glTFFileLoader.min.js",
+        "scripts/babylon.gui.min.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {
