@@ -9,11 +9,17 @@ declare interface Vector3 extends Vector2 {
 
 declare interface BabylonRenderer {
     scene: BABYLON.Scene;
-    removeActor(actor: Actor);
+    line?: LineInterface;
+    addActor(name: string, location: string);
+    removeActor(actor: ActorInterface);
     render(num?: number); 
 }
 
-declare interface Actor {
+declare interface LineInterface {
+    actors: ActorInterface[];
+}
+
+declare interface ActorInterface {
     instance: number;
     name: string;
     size: Vector3;

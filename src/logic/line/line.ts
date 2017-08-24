@@ -1,6 +1,6 @@
 import { Actor } from './actor';
 
-export class Line {
+export class Line implements LineInterface {
 
   actors: Actor[];
   startLoc: Vector3 = {x: 4, y: 0, z: 0};

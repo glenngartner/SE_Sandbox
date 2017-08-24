@@ -21,6 +21,8 @@ export class BasicBabylonRenderer implements BabylonRenderer {
 
     afterLoad() {}
 
+    addActor(name: string, location: string) {}
+
     removeActor(actor: Actor) {}
 
     render() {}

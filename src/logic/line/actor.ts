@@ -1,6 +1,6 @@
 
 
-export class Actor implements Actor {
+export class Actor implements ActorInterface {
     private static instances = 0;
     public instance: number;
     public name: string;
