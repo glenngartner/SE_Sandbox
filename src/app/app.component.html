@@ -3,23 +3,23 @@
         <!-- nav bar definition -->
         <div class="col-md-2 border">
             <hr>
-            <div class="row">
+            <div class="row justify-content-center">
                 <h2>Queue Ops</h2>
             </div>
             <div class="row justify-content-center">
-                <h6 class="col-md">Front of Queue</h6>
-                <div class="btn-group col-md" data-toggle="buttons">
-                    <label class="btn-primary" ngbButtonLabel>Add</label>
-                    <label class="btn-danger" ngbButtonLabel>Remove</label>
-                </div>
+                <h6 class="container col-md">Front of Queue</h6>
+                    <input #addActor (keyup.enter)="threeDApp.addActor(addActor.value, 'front'); addActor.value=''" type="text" class="form-control col-md" placeholder="New Name">
+                    <button class="btn-primary col-md-2" ngbButtonLabel (click)="threeDApp.addActor(addActor.value, 'front'); addActor.value=''">Add</button>
+                    <button class="btn-danger col-md" ngbButtonLabel (click)="threeDApp.removeActor(threeDApp.line.actors[0])">Remove First In Line</button>
             </div>
+            <hr>
             <div class="row justify-content-center">
                 <h6 class="col-md">End of Queue</h6>
-                <div class="btn-group col-md" data-toggle="buttons">
-                    <label class="btn-primary" ngbButtonLabel>Add</label>
-                    <label class="btn-danger" ngbButtonLabel>Remove</label>
-                </div>
+                <input #removeActor (keyup.enter)="threeDApp.addActor(removeActor.value, 'back'); removeActor.value=''" type="text" class="form-control col-md" placeholder="New Name">
+                <button class="btn-primary col-md-2" ngbButtonLabel (click)="threeDApp.addActor(removeActor.value, 'back'); removeActor.value=''">Add</button>
+                <button class="btn-danger col-md" ngbButtonLabel (click)="threeDApp.removeActor(threeDApp.line.actors[threeDApp.line.actors.length-1])">Remove Last In Line</button>
             </div>
+            <hr>
             <hr>
             <div class="row">
                 <h2>Actors: </h2>

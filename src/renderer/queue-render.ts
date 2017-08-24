@@ -33,13 +33,43 @@ export class Queue extends SimpleLine {
     this.advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI('gui1');
   }
 
+  addActor(name: string, location: string) {
+    for (const lineActor of this.line.actors) {
+      if (lineActor.name === name) {
+        alert('That name already exists. Please choose another');
+        return;
+      }
+    }
+    const actor = new Actor();
+    actor.name = name;
+    if (location === 'front') this.line.addActorToFront(actor);
+    if (location === 'back') this.line.addActorToBack(actor);
+    this.line.updateLocationOfAllActors();
+    this.createMeshForEachActor([actor], this.beveledCube);
+    this.guiTags.push(new ObjectWithGUI(actor.name, this.advancedTexture, this.scene.getMeshByName(actor.name)));
+    this.resetMeshPositions();
+    // this.createMeshForEachActor(this.line.actors, this.beveledCube);
+    // this.assignNameTag();
+    console.log(`${name} added to front. New List: `, this.line.actors);
+  }
+
+  resetMeshPositions() {
+    for (const lineActor of this.line.actors){
+      this.scene.getMeshByName(lineActor.name).position.set(lineActor.position.x, lineActor.position.y, lineActor.position.z);
+    }
+  }
+
   removeActor(actor: Actor) {
     console.log(`removed ${actor.name} from line`);
     this.line.removeActorByName(actor);
     this.scene.getMeshByName(actor.name).dispose();
-    for (const tag of this.guiTags){
-      if (tag.name === actor.name) this.advancedTexture.removeControl(tag.control);
-    }
+    // for (const tag of this.guiTags){
+      this.advancedTexture.dispose();
+    // }
+    this.line.updateLocationOfAllActors();
+    this.resetMeshPositions();
+    this.drawGUI();
+    this.assignNameTag();
     console.log(`actor list: `, this.line.actors);
   }
 
