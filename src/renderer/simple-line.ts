@@ -4,13 +4,12 @@ import { Line } from '../logic/line/line';
 import { Actor } from '../logic/line/actor';
 
 export class SimpleLine extends BabylonOrbitSun {
-  private camera: BABYLON.Camera;
-  private engineAndScene: BabylonCommon.EngineAndScene;
   private assetManager: BABYLON.AssetsManager;
   private actionManager: BABYLON.ActionManager;
   public line: Line;
   private mat: BABYLON.PBRMetallicRoughnessMaterial;
   private env: BABYLON.CubeTexture;
+  public beveledCube: BABYLON.AbstractMesh;
   
   constructor(canvas: HTMLCanvasElement, engine: BABYLON.Engine) {
     super(canvas, engine);
@@ -19,6 +18,7 @@ export class SimpleLine extends BabylonOrbitSun {
     this.loadModels();
     this.assetManager.onFinish = () => {
       this.playWithThings();
+      this.afterLoad();
       // this.loadAnimMesh();
     };
   }
@@ -47,11 +47,11 @@ export class SimpleLine extends BabylonOrbitSun {
 
   playWithThings() {
     this.createActors(this.line);
-    const cubeGeneric = this.scene.getMeshByName('Cube');
-    cubeGeneric.scaling = new BABYLON.Vector3(.5, .5, .5);
-    cubeGeneric.isVisible = false;
-    cubeGeneric.material = BabylonCommon.assignPBRMaterial(this.scene, BABYLON.Color3.Red());
-    this.createMeshForEachActor(this.line.actors, cubeGeneric);
+    this.beveledCube = this.scene.getMeshByName('Cube');
+    this.beveledCube.scaling = new BABYLON.Vector3(.5, .5, .5);
+    this.beveledCube.isVisible = false;
+    this.beveledCube.material = BabylonCommon.assignPBRMaterial(this.scene, BABYLON.Color3.Red());
+    this.createMeshForEachActor(this.line.actors, this.beveledCube);
   }
 
   createActors(line: Line) {

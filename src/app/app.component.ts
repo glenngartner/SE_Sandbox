@@ -10,7 +10,7 @@ import {SimpleLine} from '../renderer/simple-line';
 })
 
 export class AppComponent implements OnInit {
-  threeDApp: BabylonRenderer;
+  public threeDApp: BabylonRenderer;
   private engine: BABYLON.Engine;
   public scene: BABYLON.Scene;
 

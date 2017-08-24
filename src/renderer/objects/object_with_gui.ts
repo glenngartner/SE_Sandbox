@@ -12,27 +12,28 @@ declare interface GuiParams {
 
 export class ObjectWithGUI {
 
-  mesh: BABYLON.AbstractMesh;
+  public control: BABYLON.GUI.Control;
 
   constructor(public name: string,
               public guiTexture: BABYLON.GUI.AdvancedDynamicTexture,
-              object: BABYLON.AbstractMesh) {
-      this.mesh = object;
-      this.mesh.material = object.material;
+              public mesh: BABYLON.AbstractMesh) {
+      // this.mesh.material = object.material;
 
     this.drawGuiRect();
   }
 
   drawGuiRect(params: GuiParams = {
-    width: 0.2,
-    height: .1,
-    color: 'orange',
+    width: 0.1,
+    height: .05,
+    color: 'black',
     thickness: 4,
-    background: 'green',
-    cornerRadius: 20,
+    background: 'cornflowerblue',
+    cornerRadius: 10,
     name: this.name,
     offset: {x: 0, y: -100}
   }) {
+
+    // create rectangle card for placing text on top of
     const rect = new BABYLON.GUI.Rectangle(params.name);
     rect.width = params.width;
     rect.height = params.height;
@@ -41,7 +42,15 @@ export class ObjectWithGUI {
     rect.thickness = params.thickness;
     rect.background = params.background;
     this.guiTexture.addControl(rect);
+    this.control = rect;
     this.linkGUI(rect, params.offset);
+
+    // create label
+    const label = new BABYLON.GUI.TextBlock();
+    label.text = params.name;
+    label.color = 'darkblue';
+    label.fontSize = 28;
+    rect.addControl(label);
   }
 
   linkGUI(guiObj: BABYLON.GUI.Rectangle, offset: Vector2) {

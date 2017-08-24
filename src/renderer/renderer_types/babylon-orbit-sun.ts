@@ -3,7 +3,7 @@ import * as BabylonCommon from '../../common/BabylonCommon';
 
 export class BabylonOrbitSun extends BasicBabylonRenderer {
 
-    private orbitCam: BABYLON.Camera;
+    public orbitCam: BABYLON.ArcRotateCamera;
     private sunlight: BABYLON.DirectionalLight;
 
     constructor(canvas: HTMLCanvasElement, engine: BABYLON.Engine) {

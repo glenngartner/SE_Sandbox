@@ -1,4 +1,5 @@
 import * as BabylonCommon from '../../common/BabylonCommon';
+import { Actor } from '../../logic/line/actor';
 
 export class BasicBabylonRenderer implements BabylonRenderer {
     public scene: BABYLON.Scene;
@@ -19,6 +20,8 @@ export class BasicBabylonRenderer implements BabylonRenderer {
     }
 
     afterLoad() {}
+
+    removeActor(actor: Actor) {}
 
     render() {}
 }

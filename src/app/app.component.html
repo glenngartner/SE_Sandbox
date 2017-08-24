@@ -24,10 +24,10 @@
             <div class="row">
                 <h2>Actors: </h2>
             </div>
-            <div *ngFor="let actor of threeDApp.scene.meshes">
+            <div *ngFor="let actor of threeDApp.line.actors">
                 <div class="row justify-content-center">
                     <h5 class="col-md-4">{{actor.name}}</h5>
-                    <label class="col-md-4 btn-danger" ngbButtonLabel>Remove</label>
+                    <label class="col-md-4 btn-danger" (click)="threeDApp.removeActor(actor)" ngbButtonLabel>Remove</label>
                 </div>
             </div>
             <hr>

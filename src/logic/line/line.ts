@@ -3,7 +3,7 @@ import { Actor } from './actor';
 export class Line {
 
   actors: Actor[];
-  startLoc: Vector3 = {x: 0, y: 0, z: 0};
+  startLoc: Vector3 = {x: 4, y: 0, z: 0};
   endLoc: Vector3;
   distBetweenActors = 0.5;
 
@@ -20,7 +20,7 @@ export class Line {
   }
 
   addActorToThisLocation(actor: Actor, loc: number) {
-    this.actors.splice(loc - 1, 0, actor); // assume 1 (first in line) is index 0
+    this.actors.splice(loc, 0, actor); // assume 1 (first in line) is index 0
   }
 
   removeActorFromFront(): Actor {
@@ -32,15 +32,20 @@ export class Line {
   }
 
   removeActorFromThisLocation(loc: number): Actor { // assume 1 (first in line) is index 0
-    return this.actors.splice(loc - 1, 1)[0];
+    return this.actors.splice(loc, 1)[0];
   }
 
   showActorAtPosition(pos: number): Actor { // assume 1 (first in line) is index 0
-    return this.actors[pos - 1];
+    return this.actors[pos];
   }
 
   positionOfActor(actorToFind: Actor): number {
     return this.actors.indexOf(actorToFind);
+  }
+
+  removeActorByName(actorToFind: Actor) {
+    const position = this.positionOfActor(actorToFind);
+    this.removeActorFromThisLocation(position);
   }
 
   addNewActor(name: string): Actor {
