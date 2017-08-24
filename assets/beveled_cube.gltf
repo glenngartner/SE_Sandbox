@@ -1,0 +1,220 @@
+{
+    "accessors" : [
+        {
+            "bufferView" : 0, 
+            "componentType" : 5121, 
+            "count" : 564, 
+            "max" : [
+                174
+            ], 
+            "min" : [
+                0
+            ], 
+            "type" : "SCALAR"
+        }, 
+        {
+            "bufferView" : 1, 
+            "componentType" : 5126, 
+            "count" : 175, 
+            "max" : [
+                1.0000004768371582, 
+                1.0, 
+                1.0000005960464478
+            ], 
+            "min" : [
+                -1.0000003576278687, 
+                -1.0, 
+                -1.0000003576278687
+            ], 
+            "type" : "VEC3"
+        }, 
+        {
+            "bufferView" : 2, 
+            "componentType" : 5126, 
+            "count" : 175, 
+            "max" : [
+                1.0, 
+                1.0, 
+                1.0
+            ], 
+            "min" : [
+                -1.0, 
+                -1.0, 
+                -1.0
+            ], 
+            "type" : "VEC3"
+        }, 
+        {
+            "bufferView" : 3, 
+            "componentType" : 5126, 
+            "count" : 175, 
+            "max" : [
+                1.0, 
+                0.8982453942298889, 
+                1.0, 
+                1.0
+            ], 
+            "min" : [
+                -1.0, 
+                -0.8982453942298889, 
+                -1.0, 
+                1.0
+            ], 
+            "type" : "VEC4"
+        }, 
+        {
+            "bufferView" : 4, 
+            "componentType" : 5126, 
+            "count" : 175, 
+            "max" : [
+                0.9995552897453308, 
+                0.9998517701606033
+            ], 
+            "min" : [
+                0.00014822838420514017, 
+                0.0001481771469116211
+            ], 
+            "type" : "VEC2"
+        }
+    ], 
+    "asset" : {
+        "generator" : "Khronos Blender glTF 2.0 exporter", 
+        "version" : "2.0"
+    }, 
+    "bufferViews" : [
+        {
+            "buffer" : 0, 
+            "byteLength" : 564, 
+            "byteOffset" : 0, 
+            "target" : 34963
+        }, 
+        {
+            "buffer" : 0, 
+            "byteLength" : 2100, 
+            "byteOffset" : 564, 
+            "target" : 34962
+        }, 
+        {
+            "buffer" : 0, 
+            "byteLength" : 2100, 
+            "byteOffset" : 2664, 
+            "target" : 34962
+        }, 
+        {
+            "buffer" : 0, 
+            "byteLength" : 2800, 
+            "byteOffset" : 4764, 
+            "target" : 34962
+        }, 
+        {
+            "buffer" : 0, 
+            "byteLength" : 1400, 
+            "byteOffset" : 7564, 
+            "target" : 34962
+        }
+    ], 
+    "buffers" : [
+        {
+            "byteLength" : 8964, 
+            "uri" : "beveled_cube.bin"
+        }
+    ], 
+    "images" : [
+        {
+            "uri" : "glTF_Generated_baseColor.png"
+        }
+    ], 
+    "materials" : [
+        {
+            "name" : "Material.002", 
+            "pbrMetallicRoughness" : {
+                "baseColorTexture" : {
+                    "index" : 0
+                }, 
+                "metallicFactor" : 0.0, 
+                "roughnessFactor" : 0.418181836605072
+            }
+        }
+    ], 
+    "meshes" : [
+        {
+            "name" : "Cube.002", 
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "NORMAL" : 2, 
+                        "POSITION" : 1, 
+                        "TANGENT" : 3, 
+                        "TEXCOORD_0" : 4
+                    }, 
+                    "indices" : 0, 
+                    "material" : 0
+                }
+            ]
+        }
+    ], 
+    "nodes" : [
+        {
+            "name" : "Camera", 
+            "rotation" : [
+                0.45850223302841187, 
+                0.3446156978607178, 
+                -0.19882825016975403, 
+                0.7946590781211853
+            ], 
+            "scale" : [
+                1.0, 
+                1.0, 
+                0.9999999403953552
+            ], 
+            "translation" : [
+                4.404453277587891, 
+                3.4831933975219727, 
+                4.222996711730957
+            ]
+        }, 
+        {
+            "mesh" : 0, 
+            "name" : "Cube"
+        }, 
+        {
+            "name" : "Lamp", 
+            "rotation" : [
+                0.16907575726509094, 
+                0.7558802962303162, 
+                -0.27217137813568115, 
+                0.570947527885437
+            ], 
+            "scale" : [
+                1.0, 
+                1.0, 
+                0.9999999403953552
+            ], 
+            "translation" : [
+                4.076245307922363, 
+                5.903861999511719, 
+                -1.0054539442062378
+            ]
+        }
+    ], 
+    "samplers" : [
+        {}
+    ], 
+    "scene" : 0, 
+    "scenes" : [
+        {
+            "name" : "Scene", 
+            "nodes" : [
+                1, 
+                2, 
+                0
+            ]
+        }
+    ], 
+    "textures" : [
+        {
+            "sampler" : 0, 
+            "source" : 0
+        }
+    ]
+}
