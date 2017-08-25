@@ -2,7 +2,16 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.2.1.
 
-## Download Dependencies
+## Global Dependencies
+
+First, install these global npm packages: 
+
+```bash 
+npm install -g @typescript
+npm install -g @angular/cli
+```
+
+## Download Project Dependencies
 
 Within the project root directory download all required dependencies.
 
